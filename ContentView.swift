@@ -9,24 +9,82 @@ struct UserProfile {
     var correo: String = ""
 }
 
+import SwiftUI
+
 struct ContentView: View {
+    @State private var isAuthenticated = false
+    
+    var body: some View {
+        if isAuthenticated {
+            MainMenuView()
+        } else {
+            LoginView(onLoginSuccess: {
+                isAuthenticated = true
+            })
+        }
+    }
+}
+
+// Pantalla de login y registro
+struct LoginView: View {
+    @State private var email = ""
+    @State private var password = ""
+    @State private var isRegistering = false
+    var onLoginSuccess: () -> Void
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            Image("MiLogo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 200)
+                            .padding()
+            Text(isRegistering ? "Registro" : "Iniciar Sesión")
+                .font(.largeTitle)
+                .bold()
+            
+            TextField("Correo electrónico", text: $email)
+                .keyboardType(.emailAddress)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding(.horizontal)
+            
+            SecureField("Contraseña", text: $password)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding(.horizontal)
+            
+            Button(isRegistering ? "Registrarse" : "Entrar") {
+                // Aquí puedes agregar lógica de validación básica
+                if !email.isEmpty && !password.isEmpty {
+                    onLoginSuccess()
+                }
+            }
+            .padding()
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .cornerRadius(10)
+            
+            Button(isRegistering ? "¿Ya tienes cuenta? Inicia sesión" : "¿No tienes cuenta? Regístrate") {
+                isRegistering.toggle()
+            }
+            .foregroundColor(.gray)
+        }
+        .padding()
+    }
+}
+
+// Menú principal (antes ContentView)
+struct MainMenuView: View {
     @State private var profile = UserProfile()
     
     var body: some View {
         NavigationView {
             VStack {
-                Image("MiLogo")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .frame(height: 350)
-                                                .padding()
-                                
-                                NavigationLink("Ir a Perfil") {
-                                    ProfileView(profile: $profile)
+                NavigationLink("Ir a Perfil") {
+                    ProfileView(profile: $profile)
                 }
                 .padding()
                 
-                NavigationLink("Catalogo") {
+                NavigationLink("Catálogo de Bicicletas") {
                     CatalogoBicicletasView()
                 }
                 .padding()
@@ -41,10 +99,11 @@ struct ContentView: View {
                 }
                 .padding()
             }
-            .navigationTitle("Inicio")
+            .navigationTitle("Menú Principal")
         }
     }
 }
+
 
 // Pantalla 2: Perfil
 struct ProfileView: View {
@@ -100,22 +159,25 @@ struct SummaryView: View {
 // Pantalla 5: Créditos
 struct CreditsView: View {
     var body: some View {
-        VStack(spacing: 10) {
+        ZStack {
             Image("MiLogo")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 200)
-                            .padding()
-            Text("BiciExpress")
-                .font(.title2)
-            Text("Desarrollado por:")
-            Text("🧑‍💻 Santiago Acuña Obando")
-            Text("🧑‍💻 Juan Jose Dorado Piamba")
-            Text("🧑‍💻 David Alejandro Guerrero")
-            Text("MicroProyecto IOS - SwiftUI")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .opacity(0.5)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .edgesIgnoringSafeArea(.all)
+            VStack(spacing: 20) {
+                
+                //Text("BiciExpress")
+                    //.font(.title2)
+                Text("Desarrollado por:")
+                Text("🧑‍💻 Santiago Acuña Obando")
+                Text("🧑‍💻 Juan Jose Dorado Piamba")
+                Text("🧑‍💻 David Alejandro Guerrero")
+                Text("MicroProyecto IOS - SwiftUI")
+            }
+            .padding()
+            .navigationTitle("Créditos")
         }
-        .padding()
-        .navigationTitle("Créditos")
     }
 }
-
