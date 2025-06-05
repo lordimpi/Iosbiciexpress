@@ -15,12 +15,14 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("Bienvenido a BiciExpress")
-                    .font(.title)
-                    .padding()
-                
-                NavigationLink("Ir a Perfil") {
-                    ProfileView(profile: $profile)
+                Image("MiLogo")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(height: 350)
+                                                .padding()
+                                
+                                NavigationLink("Ir a Perfil") {
+                                    ProfileView(profile: $profile)
                 }
                 .padding()
                 
@@ -61,16 +63,16 @@ struct ProfileView: View {
 }
 
 // Pantalla 3: Preferencias
-struct PreferencesView: View {
-    @Binding var profile: UserProfile
+//struct PreferencesView: View {
+//    @Binding var profile: UserProfile
     
-    var body: some View {
-        Form {
-            Toggle("Modo oscuro", isOn: $profile.prefersDarkMode)
-        }
-        .navigationTitle("Preferencias")
-    }
-}
+ //   var body: some View {
+   //     Form {
+     //       Toggle("Modo oscuro", isOn: $profile.prefersDarkMode)
+       // }
+       // .navigationTitle("Preferencias")
+    //}
+//}
 
 // Pantalla 4: Resumen
 struct SummaryView: View {
@@ -82,7 +84,13 @@ struct SummaryView: View {
             //Text("Estudiante: \(profile.isStudent ? "Sí" : "No")")
             //Text("Edad: \(profile.age)")
             //Text("Modo Oscuro: \(profile.prefersDarkMode ? "Activado" : "Desactivado")")
-            Text("Hola, somos BiciExpress y les presentamos una solución rápida y sostenible para la movilidad urbana: nuestra aplicación de alquiler de bicicletas. Con un diseño simple, amigable y funcional, esta app permite a los usuarios explorar un catálogo de bicicletas disponibles, conocer sus características, y realizar una reserva inmediata, todo desde su celular.")
+            Image("MiLogo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 200)
+                            .padding()
+            Text("Hola, somos BiciExpress y les presentamos una solución rápida y sostenible para la movilidad urbana: nuestra aplicación de alquiler de bicicletas.")
+            Text("Con un diseño simple, amigable y funcional, esta app permite a los usuarios explorar un catálogo de bicicletas disponibles, conocer sus características, y realizar una reserva inmediata, todo desde su celular.")
         }
         .padding()
         .navigationTitle("Resumen")
@@ -93,6 +101,11 @@ struct SummaryView: View {
 struct CreditsView: View {
     var body: some View {
         VStack(spacing: 10) {
+            Image("MiLogo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 200)
+                            .padding()
             Text("BiciExpress")
                 .font(.title2)
             Text("Desarrollado por:")
