@@ -91,7 +91,7 @@ struct SummaryView: View {
             Image("MiLogo")
                 .resizable()
                 .scaledToFit()
-                .frame(height: 150)
+                .frame(height: 200)
                 .padding()            //Text("Nombre: \(profile.name)")
             //Text("Estudiante: \(profile.isStudent ? "Sí" : "No")")
             //Text("Edad: \(profile.age)")
