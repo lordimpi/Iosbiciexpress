@@ -6,6 +6,7 @@ struct UserProfile {
     var isStudent: Bool = true
     var age: Int = 18
     var prefersDarkMode: Bool = false
+    var correo: String = ""
 }
 
 struct ContentView: View {
@@ -23,8 +24,8 @@ struct ContentView: View {
                 }
                 .padding()
                 
-                NavigationLink("Preferencias") {
-                    PreferencesView(profile: $profile)
+                NavigationLink("Catalogo") {
+                    CatalogoBicicletasView()
                 }
                 .padding()
                 
@@ -50,8 +51,10 @@ struct ProfileView: View {
     var body: some View {
         Form {
             TextField("Nombre", text: $profile.name)
+            TextField("Correo", text: $profile.correo)
             Toggle("¿Eres estudiante?", isOn: $profile.isStudent)
             Stepper("Edad: \(profile.age)", value: $profile.age, in: 5...100)
+            
         }
         .navigationTitle("Perfil")
     }
