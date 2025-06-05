@@ -39,7 +39,7 @@ struct CatalogoBicicletasView: View {
                                 .font(.headline)
                             Text("Color: \(bici.color), Rin: \(bici.rin), Cambios: \(bici.cambios ?? "-")")
                                 .font(.subheadline)
-                            Text("Disponibilidad: \(bici.disponible ? "Disponible" : "No disponible")")
+                            Text("\(bici.disponible ? "Disponible" : "No disponible")")
                                 .foregroundColor(bici.disponible ? .green : .red)
                                 .font(.subheadline)
                         }
